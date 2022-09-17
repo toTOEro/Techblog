@@ -9,9 +9,14 @@ const { User, Post } = require('../models');
 // Homepage route
 router.get('/', withAuth, async (req, res) => {
     try {
-        const postData = await Post.findAll();
+        const postData = await Post.findAll({
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['username']
+            }]
+        });
         const posts = postData.map(post => post.get({ plain: true }));
-
         res.render('posts', {
             posts,
             loggedIn: req.session.loggedIn,
