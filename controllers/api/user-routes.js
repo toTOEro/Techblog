@@ -28,6 +28,19 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
 
+    const loginData = await User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    })
+
+    if (!loginData) {
+      res.status(400).json({ message: 'Error, try again!' })
+      return
+    }
+
+    const pwCheck = await loginData.
+
   } catch (err) {
     console.log(err)
     res.status(500).json(err)

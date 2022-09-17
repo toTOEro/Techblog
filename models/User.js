@@ -6,7 +6,11 @@ const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
 // Initialize User model (table) by extending off Sequelize's Model class
-class User extends Model { }
+class User extends Model {
+    pwVerification(pw) {
+        return bcrypt.compareSync(pw, this.password);
+    }
+}
 
 
 // set up fields and rules for User model

@@ -1,11 +1,6 @@
 
 // This JS file handles logins
 
-const { response } = require("express");
-
-const loginForm = document.getElementById('loginForm');
-
-
 const loginHandler = async (event) => {
     event.preventDefault();
 
