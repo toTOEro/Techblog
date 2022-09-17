@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 // Configuring session 
 const sess = {
+  secret: 'this is a temp secret',
   cookie: {},
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -24,6 +25,9 @@ const sess = {
 
 app.use(session(sess));
 
+const hbs = exphbs.create();
+
+app.engine('handlebars', hbs.engine)
 app.set('view engine', 'handlebars');
 
 

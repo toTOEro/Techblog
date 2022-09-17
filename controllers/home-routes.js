@@ -12,6 +12,11 @@ router.get('/', withAuth, async (req, res) => {
         const postData = await Post.findAll();
         const posts = postData.map(post => post.get({ plain: true }));
 
+        res.render('posts', {
+            posts,
+            loggedIn: req.session.loggedIn,
+        })
+
     } catch (err) {
         res.status(500).json(err)
     }
@@ -28,10 +33,14 @@ router.get('/post/:id', withAuth, async (req, res) => {
 
 // View login route
 router.get('/login', (req, res) => {
-    try {
-
-    } catch (err) {
-        res.status(500).json(err)
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
     }
 
+    res.render('login');
+
+
 })
+
+module.exports = router;
