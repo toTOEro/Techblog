@@ -1,5 +1,5 @@
 
-// This JS file handles logins
+// This JS file handles logouts
 
 const logoutHandler = async (event) => {
     event.preventDefault();
