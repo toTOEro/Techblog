@@ -14,15 +14,15 @@ User.hasMany(Post, {
   onDelete: 'CASCADE'
 });
 
-// Posts have many comments
-Post.hasMany(Comment, {
-  foreignKey: 'comment_id',
-  onDelete: 'CASCADE'
-});
-
 // Comments belongTo Posts
 Comment.belongsTo(Post, {
-  foreignKey: 'comment_id'
+  foreignKey: 'post_id'
+});
+
+// Posts have many comments
+Post.hasMany(Comment, {
+  foreignKey: 'post_id',
+  onDelete: 'CASCADE'
 });
 
 

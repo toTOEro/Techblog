@@ -3,22 +3,24 @@ const { Comment } = require('../models')
 
 const commentData = [
   {
-    "username": "Sal",
-    "email": "sal@hotmail.com",
-    "password": "password12345"
+    "comment": "Test Comment 1",
+    "comment_date": 'March 30, 2020',
+    "post_id": 1
   },
   {
-    "username": "Lernantino",
-    "email": "lernantino@gmail.com",
-    "password": "password12345"
+    "comment": "Test Comment 1",
+    "comment_date": 'March 30, 2019',
+    "post_id": 1
+
   },
   {
-    "username": "Amiko",
-    "email": "amiko2k20@aol.com",
-    "password": "password12345"
+    "comment": "Test Comment 1",
+    "comment_date": 'March 30, 2018',
+    "post_id": 2
+
   }
 ]
 
-const seedComments = () => User.bulkCreate(commentData);
+const seedComments = () => Comment.bulkCreate(commentData);
 
 module.exports = seedComments;
