@@ -17,8 +17,6 @@ User.hasMany(Post, {
 
 
 module.exports = {
-  Product,
-  Category,
-  Tag,
-  ProductTag,
+  User,
+  Post
 };
