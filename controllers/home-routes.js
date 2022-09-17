@@ -7,7 +7,7 @@ const { User, Post } = require('../models');
 
 
 // Homepage route
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll();
         const posts = postData.map(post => post.get({ plain: true }));
