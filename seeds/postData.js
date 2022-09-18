@@ -14,6 +14,7 @@ const postData = [
         "post_date": 'March 30, 2019',
         "user_id": 2,
 
+
     },
     {
         "post_name": "Foo",
