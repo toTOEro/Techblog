@@ -30,15 +30,15 @@ const { Post, User, Comment } = require('../../models');
 // })
 
 
-// // find all posts
-// router.get('/', async (req, res) => {
-//   try {
-//     const commentData = await Comment.findAll();
-//     res.status(200).json(commentData);
-//   } catch (err) {
-//     res.status(500).json(err)
-//   }
-// });
+// find all comments
+router.get('/', async (req, res) => {
+  try {
+    const commentData = await Comment.findAll();
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
 
 // // find one Comment by its `id` value
 // router.get('/:id', async (req, res) => {
@@ -94,7 +94,7 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (!commentData) {
-      res.status(404).json({ message: 'No post found with that ID!' });
+      res.status(404).json({ message: 'No comment found with that ID!' });
       return;
     };
 

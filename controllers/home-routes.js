@@ -3,6 +3,7 @@
 const router = require('express').Router();
 const withAuth = require('../utils/auth')
 const { User, Post, Comment } = require('../models');
+const e = require('express');
 
 
 
@@ -46,16 +47,18 @@ router.get('/post/:id', withAuth, async (req, res) => {
                 model: Comment,
                 include: [{
                     model: User,
-                    attributes: ['username']
+                    attributes: ['username', 'email']
                 }]
             }]
         });
 
         const posts = postData.get({ plain: true });
 
+        console.log(req.session.uID)
         res.render('singlePost', {
             posts,
             loggedIn: req.session.loggedIn,
+            currentUID: req.session.uID
         })
 
     } catch (err) {
@@ -104,20 +107,26 @@ router.get('/dashboard', withAuth, async (req, res) => {
 router.get('/dashboard/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
-            // include: [{
-            //     model: User,
-            //     as: 'user',
-            //     attributes: ['username']
-            // }]
+            include: [{
+                model: User,
+                as: 'user',
+                attributes: ['username', 'email']
+            }]
         });
 
         const post = postData.get({ plain: true });
 
+        if (req.session.email == post.user.email) {
+            let postOwner = true;
+            res.render('postDash', {
+                post,
+                loggedIn: req.session.loggedIn,
+                postOwner: postOwner,
+            })
+        } else {
+            res.redirect('/dashboard')
+        }
 
-        res.render('postDash', {
-            post,
-            loggedIn: req.session.loggedIn,
-        })
 
     } catch (err) {
         res.status(500).json(err)

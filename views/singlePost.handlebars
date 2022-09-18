@@ -16,8 +16,9 @@
 {{#if posts.comments}}
 <section>
     <h3 class="my-2 mx-3">Comments:</h3>
+
     {{#each posts.comments }}
-    {{> comment-details }}
+    {{>comment-details currentUID=../currentUID}}
     {{/each}}
 </section>
 {{/if}}
@@ -36,3 +37,4 @@
 </section>
 
 <script src="../js/comments.js"></script>
+<script src="../js/deleteComment.js"></script>
