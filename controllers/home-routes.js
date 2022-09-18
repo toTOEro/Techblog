@@ -41,21 +41,32 @@ router.get('/post/:id', withAuth, async (req, res) => {
                 model: User,
                 as: 'user',
                 attributes: ['username']
+            },
+            {
+                model: Comment,
+                include: [{
+                    model: User,
+                    attributes: ['username']
+                }]
             }]
         });
 
-        const post = postData.get({ plain: true });
-
-        console.log(post);
+        const posts = postData.get({ plain: true });
 
         res.render('singlePost', {
-            post,
+            posts,
             loggedIn: req.session.loggedIn,
         })
 
     } catch (err) {
         res.status(500).json(err)
     }
+})
+
+// Renders post page
+router.get('/post', withAuth, async (req, res) => {
+    res.render('newPost', { loggedIn: req.session.loggedIn })
+
 })
 
 // View user dashboard
@@ -102,7 +113,6 @@ router.get('/dashboard/:id', withAuth, async (req, res) => {
 
         const post = postData.get({ plain: true });
 
-        console.log(post);
 
         res.render('postDash', {
             post,

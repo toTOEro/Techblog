@@ -1,24 +1,25 @@
 <section class="card my-2 mx-3">
-
     <div class="card-body">
-        <h5 class="card-title">{{post.post_name}}</h5>
-        <p class="card-text">{{post.contents}}</p>
+        <h5 class="card-title">{{posts.post_name}}</h5>
+        <p class="card-text">{{posts.contents}}</p>
 
     </div>
 
     <div class="d-flex card-header border-top ">
-        <h5 class="ms-auto"> Posted By: <i>{{post.user.username}}</i> </h5>
+        <h5 class="ms-auto"> Posted By: <i>{{posts.user.username}}</i> on: {{format_date posts.post_date}} </h5>
     </div>
 
 </section>
 
 
-{{#if comments}}
+
+{{#if posts.comments}}
 <section>
-    {{#each comments}}
-
+    <h3 class="my-2 mx-3">Comments:</h3>
+    {{#each posts.comments }}
+    {{> comment-details }}
+    {{/each}}
 </section>
-
 {{/if}}
 
 <section class="card my-2 mx-3">
@@ -33,3 +34,5 @@
         </form>
     </div>
 </section>
+
+<script src="../js/comments.js"></script>

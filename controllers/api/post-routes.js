@@ -54,6 +54,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new post
   try {
+    req.body.user_id = req.session.uID;
     const postData = await Post.create(req.body);
     res.status(200).json(postData);
 
