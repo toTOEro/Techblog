@@ -10,6 +10,7 @@ const { User, Post, Comment } = require('../models');
 router.get('/', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll({
+            order: [['post_date', 'DESC']],
             include: [{
                 model: User,
                 as: 'user',
@@ -57,10 +58,10 @@ router.get('/post/:id', withAuth, async (req, res) => {
     }
 })
 
+// View user dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
         const postData = await Post.findAll({
-            // where: { id: req.session.uID },
             include: [{
                 model: User,
                 as: 'user',
@@ -74,9 +75,10 @@ router.get('/dashboard', withAuth, async (req, res) => {
             }
             ]
         });
+
         const posts = postData.map(post => post.get({ plain: true }));
 
-        res.render('posts', {
+        res.render('dashboard', {
             posts,
             loggedIn: req.session.loggedIn,
         })
@@ -85,6 +87,31 @@ router.get('/dashboard', withAuth, async (req, res) => {
         res.status(500).json(err)
     }
 
+})
+
+// Access user post dashboard
+router.get('/dashboard/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id, {
+            // include: [{
+            //     model: User,
+            //     as: 'user',
+            //     attributes: ['username']
+            // }]
+        });
+
+        const post = postData.get({ plain: true });
+
+        console.log(post);
+
+        res.render('postDash', {
+            post,
+            loggedIn: req.session.loggedIn,
+        })
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
 })
 
 // View login route
